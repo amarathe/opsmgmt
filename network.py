@@ -103,6 +103,7 @@ class GraphVisualization:
                    for x in self.edges))
         # Positions to plot.
         x, y = 0, 0
+        layer = 0
         while bfs:
             newbfs = []
             # Sort for prettyness (bottom to top is alphabetical)
@@ -117,7 +118,9 @@ class GraphVisualization:
                     elif nodeorder[post] < 0:
                         raise Exception("ERROR! Detected cycle on node: " + node)
             bfs = list(set(newbfs))
-            x, y = x + 1, 0
+            layer += 1
+            #Offset y a little to avoid cross-through of lines through nodes
+            x, y = x + 1, (layer % 2) * 0.5
         return pos
 
     def labelstartfinish(self, pos):
